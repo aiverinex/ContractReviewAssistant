@@ -1,0 +1,167 @@
+# Contract Reviewer Crew Configuration
+# This file contains configuration settings for the CrewAI-based contract review system
+
+project:
+  name: "Contract Reviewer Crew"
+  version: "1.0.0"
+  description: "AI-powered contract review system using CrewAI and OpenAI GPT-4"
+  marketplace_compatible: true
+
+# Agent Configuration
+agents:
+  clause_detector:
+    name: "Legal Clause Detection Specialist"
+    temperature: 0.1
+    max_tokens: 4000
+    model: "gpt-4o"  # Latest OpenAI model as of May 2024
+    focus_areas:
+      - "Indemnity clauses"
+      - "Termination provisions"
+      - "Exclusivity agreements"
+      - "Liability limitations"
+      - "Intellectual property"
+      - "Confidentiality"
+      - "Governing law"
+      - "Dispute resolution"
+      - "Payment terms"
+      - "Force majeure"
+
+  risk_analyzer:
+    name: "Legal Risk Assessment Specialist"
+    temperature: 0.1
+    max_tokens: 4000
+    model: "gpt-4o"
+    risk_categories:
+      - "Legal exposure"
+      - "Business risk"
+      - "Compliance risk"
+      - "Language ambiguity"
+      - "One-sided provisions"
+      - "Missing protections"
+    severity_levels:
+      - "High"
+      - "Medium" 
+      - "Low"
+
+  redline_suggester:
+    name: "Contract Redlining and Amendment Specialist"
+    temperature: 0.2
+    max_tokens: 4000
+    model: "gpt-4o"
+    suggestion_types:
+      - "Text modifications"
+      - "New clause additions"
+      - "Deletions"
+      - "Clarifications"
+      - "Protective language"
+    priority_levels:
+      - "Critical"
+      - "High"
+      - "Medium"
+      - "Low"
+
+# CrewAI Process Configuration
+crew:
+  process_type: "sequential"
+  max_iterations: 3
+  verbose: true
+  memory_enabled: true
+  full_output: true
+  
+  task_execution:
+    clause_detection_timeout: 300  # 5 minutes
+    risk_analysis_timeout: 300     # 5 minutes  
+    redline_generation_timeout: 300 # 5 minutes
+
+# File Processing Configuration
+file_processing:
+  supported_formats:
+    - ".txt"
+    - ".pdf"
+    - ".docx"
+  max_file_size_mb: 10
+  encoding: "utf-8"
+  
+  # Text extraction settings
+  pdf_extraction:
+    method: "pdfplumber"  # or "PyPDF2"
+    preserve_formatting: false
+  
+  docx_extraction:
+    include_headers: true
+    include_footers: false
+    include_tables: true
+
+# Output Configuration
+output:
+  formats:
+    - "json"
+    - "txt"
+  
+  file_names:
+    summary: "review_summary"
+    detailed: "detailed_analysis"
+    redlines: "redline_suggestions"
+  
+  save_location: "./output/"
+  timestamp_files: true
+
+# OpenAI API Configuration
+openai:
+  model: "gpt-4o"
+  temperature: 0.1
+  max_tokens: 4000
+  response_format: "json_object"
+  
+  # Rate limiting and retry settings
+  rate_limits:
+    requests_per_minute: 50
+    max_retries: 3
+    backoff_factor: 2
+
+# Contract Review Standards
+review_standards:
+  essential_clauses:
+    - "Indemnification"
+    - "Limitation of Liability"
+    - "Termination"
+    - "Governing Law"
+    - "Dispute Resolution"
+  
+  risk_thresholds:
+    high_risk_score: 7
+    medium_risk_score: 4
+    acceptable_risk_score: 2
+  
+  quality_metrics:
+    min_clause_coverage: 80  # Percentage
+    max_acceptable_high_risks: 2
+    clarity_score_threshold: 7
+
+# Logging and Monitoring
+logging:
+  level: "INFO"
+  file: "contract_review.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # Performance monitoring
+  track_processing_time: true
+  track_token_usage: true
+  track_success_rates: true
+
+# Marketplace Submission Configuration
+marketplace:
+  category: "Legal & Compliance"
+  tags:
+    - "contract-review"
+    - "legal-analysis"
+    - "risk-assessment"
+    - "document-analysis"
+    - "ai-legal"
+  
+  submission_requirements:
+    readme_complete: true
+    sample_data_included: true
+    license_included: true
+    env_example_provided: true
+    documentation_complete: true
