@@ -1,47 +1,214 @@
 # Contract Reviewer Crew
 
-> AI-powered contract review system using CrewAI and OpenAI GPT-4
+A production-grade CrewAI-based system that automates comprehensive legal contract analysis using specialized AI agents. This crew provides professional contract review with clause detection, risk analysis, and redline suggestions.
 
-A production-grade, multi-agent system that automates legal contract review using specialized AI agents for clause detection, risk analysis, and redline suggestions. Built with CrewAI framework and designed for submission to the [CrewAI Marketplace](https://marketplace.crewai.com).
+## Features
 
-## 🎯 Project Purpose
+- **Multi-Agent Analysis**: Specialized AI agents for clause detection, risk analysis, and redline suggestions
+- **OCR Support**: Advanced text extraction from scanned PDFs and image-based contracts
+- **Professional Reports**: Clean, formatted PDF reports with legal disclaimers
+- **Privacy-First**: Automatic file deletion after processing - no data stored permanently
+- **Web Interface**: Modern, responsive web UI with drag-and-drop file upload
+- **Comprehensive Analysis**: Identifies key clauses, assesses risks, and provides actionable recommendations
 
-Automate the legal contract review process to help legal teams scale their review capabilities:
+## Installation
 
-- **Ingest contracts** from multiple formats (.txt, .pdf, .docx)
-- **Identify key clauses** (indemnity, termination, exclusivity, etc.)
-- **Flag risks** and vague language using AI analysis
-- **Suggest redlines** and legal comments
-- **Output structured** review summaries
-
-## 🧠 AI Agent Architecture
-
-### ClauseDetectorAgent
-- **Role**: Legal Clause Detection Specialist
-- **Function**: Identifies and maps critical contract clauses
-- **Output**: Structured clause mapping with importance rankings
-
-### RiskAnalysisAgent  
-- **Role**: Legal Risk Assessment Specialist
-- **Function**: Analyzes legal risks, vague language, and problematic provisions
-- **Output**: Comprehensive risk assessment with severity ratings
-
-### RedlineSuggesterAgent
-- **Role**: Contract Redlining and Amendment Specialist
-- **Function**: Generates specific redline suggestions and negotiation strategy
-- **Output**: Prioritized redlines with implementation roadmap
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Python 3.8+
-- OpenAI API key
-- Required Python packages (see installation below)
-
-### Installation
-
-1. **Clone the repository**
+1. **Clone the repository**:
 ```bash
 git clone <repository-url>
 cd contract-reviewer-crew
+```
+
+2. **Install dependencies**:
+```bash
+pip install -r requirements.txt
+```
+
+3. **Set up environment variables**:
+```bash
+cp .env.example .env
+# Edit .env and add your OpenAI API key
+```
+
+4. **Install system dependencies** (for OCR):
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install tesseract-ocr poppler-utils
+
+# macOS
+brew install tesseract poppler
+```
+
+## Configuration
+
+### Environment Variables
+
+Create a `.env` file with the following variables:
+
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+### Agent Configuration
+
+The crew uses three specialized agents configured in `config/agents.yaml`:
+
+- **Clause Detector Agent**: Identifies and maps key legal clauses
+- **Risk Analysis Agent**: Analyzes contract risks and language clarity  
+- **Redline Suggester Agent**: Generates specific amendments and improvements
+
+### Task Configuration
+
+Tasks are defined in `config/tasks.yaml` and include:
+
+- Clause detection and classification
+- Risk assessment with severity levels
+- Language clarity analysis
+- Redline suggestion generation
+- Executive summary creation
+
+## Usage
+
+### Web Interface
+
+1. **Start the web application**:
+```bash
+python app.py
+```
+
+2. **Access the interface**: Open http://localhost:5000 in your browser
+
+3. **Upload a contract**: Drag and drop or select a contract file (.pdf, .docx, .txt)
+
+4. **Review results**: View the analysis summary and download the professional PDF report
+
+### Command Line
+
+1. **Run contract analysis**:
+```bash
+python main.py
+```
+
+2. **With custom file**:
+```bash
+python main.py --file path/to/contract.pdf
+```
+
+### Supported File Formats
+
+- **PDF**: Text-based and image-based (OCR)
+- **Word Documents**: .docx format
+- **Text Files**: .txt format
+- **Images**: .png, .jpg (OCR)
+
+## Crew Structure
+
+### Agents
+
+1. **ClauseDetectorAgent** (`agents/clause_detector_agent.py`)
+   - Detects key legal clauses (indemnity, termination, exclusivity, etc.)
+   - Maps clause locations and importance levels
+   - Provides recommendations for missing clauses
+
+2. **RiskAnalysisAgent** (`agents/risk_analysis_agent.py`)
+   - Analyzes legal and business risks
+   - Identifies vague language and problematic terms
+   - Assigns severity levels to identified risks
+
+3. **RedlineSuggesterAgent** (`agents/redline_suggester_agent.py`)
+   - Generates specific redline suggestions
+   - Prioritizes changes based on risk impact
+   - Provides negotiation strategies
+
+### Tasks
+
+Tasks are orchestrated through the `ContractReviewTasks` class and include:
+
+- **Clause Detection Task**: Systematic identification of contract clauses
+- **Risk Analysis Task**: Comprehensive risk assessment
+- **Redline Suggestion Task**: Generation of specific amendments
+- **Executive Summary Task**: High-level analysis summary
+
+### Crew Orchestration
+
+The `ContractReviewCrew` class coordinates all agents and tasks:
+
+```python
+from crew.crew import ContractReviewCrew
+
+# Initialize the crew
+crew = ContractReviewCrew()
+
+# Run contract analysis
+results = crew.review_contract(contract_text)
+```
+
+## Output
+
+### Analysis Results
+
+The crew generates comprehensive analysis including:
+
+- **Executive Summary**: Overall risk assessment and key metrics
+- **Clause Analysis**: Detailed breakdown of detected clauses
+- **Risk Assessment**: Identified risks with severity levels
+- **Redline Suggestions**: Specific recommendations for improvements
+- **Next Steps**: Actionable recommendations
+
+### Report Formats
+
+- **JSON**: Structured data for programmatic access
+- **PDF**: Professional formatted report with legal disclaimers
+- **Text**: Human-readable summary
+
+## Privacy & Security
+
+- **No Data Retention**: All uploaded files and reports are automatically deleted
+- **Legal Disclaimers**: Clear warnings about AI limitations
+- **Secure Processing**: Files processed in memory when possible
+- **Immediate Cleanup**: Automatic file deletion within 10 seconds of processing
+
+## Legal Disclaimer
+
+**This AI tool provides informational analysis only and does not constitute legal advice.** The analysis is generated by artificial intelligence and may contain errors, omissions, or inaccuracies. Users should not rely solely on this analysis for legal decisions.
+
+**Key Limitations:**
+- This tool does not replace qualified legal counsel
+- AI analysis may miss critical legal nuances
+- Contract law varies by jurisdiction
+- Results should be reviewed by a licensed attorney
+- No attorney-client relationship is created by using this tool
+
+**Recommendation:** Always consult with qualified legal professionals before making any contract-related decisions or entering into legal agreements.
+
+## Technical Requirements
+
+- Python 3.8+
+- OpenAI API access (GPT-4o-mini)
+- Tesseract OCR (for image-based documents)
+- 4GB+ RAM recommended
+- Internet connection for AI processing
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+For support, questions, or feature requests:
+- Open an issue on GitHub
+- Contact the development team
+- Check the CrewAI documentation
+
+## CrewAI Marketplace
+
+This crew is designed for submission to the [CrewAI Marketplace](https://marketplace.crewai.com). It follows all marketplace guidelines and best practices for production-ready AI agent crews.
