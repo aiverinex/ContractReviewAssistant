@@ -38,9 +38,7 @@ class ContractReviewCrew:
                 tasks=[],  # Tasks will be added dynamically
                 process=Process.sequential,
                 memory=True,
-                verbose=True,
-                max_iter=3,
-                full_output=True
+                verbose=True
             )
         except Exception as e:
             print(f"Error setting up crew: {e}")

@@ -16,6 +16,10 @@ author = "agent"
 task = "workflow.run"
 args = "Contract Reviewer"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Web Interface"
+
 [[workflows.workflow]]
 name = "Contract Reviewer"
 author = "agent"
@@ -24,5 +28,18 @@ author = "agent"
 task = "shell.exec"
 args = "python main.py"
 
+[[workflows.workflow]]
+name = "Web Interface"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python app.py"
+waitForPort = 5000
+
 [deployment]
 run = ["sh", "-c", "python main.py"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80

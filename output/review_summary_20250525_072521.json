@@ -1,0 +1,341 @@
+{
+  "success": true,
+  "contract_analysis": {
+    "clause_detection": {
+      "detected_clauses": [
+        {
+          "clause_type": "Payment terms clauses",
+          "clause_text": "Client agrees to pay Company a total fee of $150,000 for the development services. Payment shall be made according to the following schedule: - $30,000 upon execution of this Agreement - $40,000 upon completion of initial design phase - $40,000 upon delivery of beta version - $40,000 upon final delivery and acceptance All payments are due within thirty (30) days of invoice. Late payments shall accrue interest at the rate of 1.5% per month.",
+          "location_context": "Section 2: PAYMENT TERMS",
+          "importance_level": "High"
+        },
+        {
+          "clause_type": "Intellectual property clauses",
+          "clause_text": "Upon full payment of all fees, Client shall own all intellectual property rights in the Software, including but not limited to copyrights, patents, and trade secrets. Company retains ownership of any pre-existing intellectual property and general methodologies used in development.",
+          "location_context": "Section 4: INTELLECTUAL PROPERTY",
+          "importance_level": "High"
+        },
+        {
+          "clause_type": "Liability limitation clauses",
+          "clause_text": "IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF OR RELATED TO THIS AGREEMENT, REGARDLESS OF THE THEORY OF LIABILITY. COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED THE TOTAL FEES PAID BY CLIENT UNDER THIS AGREEMENT.",
+          "location_context": "Section 6: LIMITATION OF LIABILITY",
+          "importance_level": "High"
+        },
+        {
+          "clause_type": "Confidentiality/Non-disclosure clauses",
+          "clause_text": "Each party acknowledges that it may receive confidential information from the other party. Both parties agree to maintain the confidentiality of such information and not disclose it to third parties without prior written consent.",
+          "location_context": "Section 7: CONFIDENTIALITY",
+          "importance_level": "High"
+        },
+        {
+          "clause_type": "Termination clauses",
+          "clause_text": "Either party may terminate this Agreement upon thirty (30) days written notice. In the event of termination, Client shall pay Company for all work performed through the date of termination. Company shall deliver all work product completed as of the termination date.",
+          "location_context": "Section 8: TERMINATION",
+          "importance_level": "High"
+        },
+        {
+          "clause_type": "Governing law clauses",
+          "clause_text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to conflict of law principles.",
+          "location_context": "Section 9: GOVERNING LAW",
+          "importance_level": "Medium"
+        },
+        {
+          "clause_type": "Dispute resolution clauses",
+          "clause_text": "Any disputes arising under this Agreement shall first be addressed through good faith negotiations. If negotiations fail, disputes shall be resolved through binding arbitration in accordance with the Commercial Arbitration Rules of the American Arbitration Association.",
+          "location_context": "Section 10: DISPUTE RESOLUTION",
+          "importance_level": "High"
+        }
+      ],
+      "clause_summary": {
+        "total_clauses_found": 7,
+        "high_importance_count": 6,
+        "coverage_assessment": "The contract covers most critical legal clauses, including payment terms, intellectual property, liability limitation, confidentiality, termination, governing law, and dispute resolution. However, it lacks explicit indemnity, exclusivity, and force majeure clauses."
+      }
+    },
+    "risk_analysis": {
+      "risk_analysis": [
+        {
+          "risk_type": "Vague or Ambiguous Language",
+          "risk_description": "The clause regarding 'reasonable extensions due to scope changes or unforeseen circumstances' is vague and could lead to disputes over what constitutes a reasonable extension.",
+          "severity_level": "Medium",
+          "affected_clause": "Timeline",
+          "potential_impact": "Disputes over project delays and potential additional costs.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "One-sided Provisions",
+          "risk_description": "The limitation of liability clause heavily favors the Company by excluding liability for indirect, incidental, special, or consequential damages.",
+          "severity_level": "High",
+          "affected_clause": "Limitation of Liability",
+          "potential_impact": "Client may not be able to recover significant damages in case of a major breach.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "Excessive Liability Exposure",
+          "risk_description": "The Company's liability is limited to the total fees paid, which may not cover potential damages incurred by the Client.",
+          "severity_level": "High",
+          "affected_clause": "Limitation of Liability",
+          "potential_impact": "Client may face financial losses exceeding the contract value.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "Inadequate Termination Protections",
+          "risk_description": "The termination clause allows either party to terminate with 30 days' notice, but lacks provisions for termination for cause or specific breach scenarios.",
+          "severity_level": "Medium",
+          "affected_clause": "Termination",
+          "potential_impact": "Potential for abrupt termination without adequate recourse for breach.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "Missing Risk Mitigation Clauses",
+          "risk_description": "The contract lacks specific clauses addressing risk mitigation strategies such as indemnification or insurance requirements.",
+          "severity_level": "High",
+          "affected_clause": "General",
+          "potential_impact": "Increased exposure to unforeseen risks and liabilities.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "Unreasonable Obligations or Commitments",
+          "risk_description": "The 'time is of the essence' clause imposes strict deadlines without clear provisions for handling delays due to Client's actions or external factors.",
+          "severity_level": "Medium",
+          "affected_clause": "Timeline",
+          "potential_impact": "Potential for disputes and penalties related to project delays.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "Intellectual Property Risks",
+          "risk_description": "The clause states that Client owns all IP rights upon full payment, but does not clarify rights if the contract is terminated before full payment.",
+          "severity_level": "Medium",
+          "affected_clause": "Intellectual Property",
+          "potential_impact": "Disputes over IP ownership if the contract is terminated prematurely.",
+          "likelihood": "Low"
+        },
+        {
+          "risk_type": "Compliance and Regulatory Risks",
+          "risk_description": "The contract does not address compliance with data protection laws, which is critical given the software's data management capabilities.",
+          "severity_level": "High",
+          "affected_clause": "General",
+          "potential_impact": "Potential legal liabilities and penalties for non-compliance with data protection regulations.",
+          "likelihood": "Medium"
+        }
+      ],
+      "overall_risk_assessment": {
+        "total_risks_identified": 8,
+        "high_severity_count": 3,
+        "medium_severity_count": 5,
+        "low_severity_count": 0,
+        "overall_risk_score": 7,
+        "key_concerns": [
+          "Limitation of liability heavily favors the Company.",
+          "Lack of specific risk mitigation clauses.",
+          "Potential non-compliance with data protection laws."
+        ],
+        "recommended_action": "Negotiate more balanced liability terms, include indemnification and insurance clauses, and ensure compliance with relevant data protection regulations."
+      }
+    },
+    "language_clarity": {
+      "clarity_issues": [
+        {
+          "issue_type": "vague or ambiguous terms",
+          "problematic_text": "certain software applications as specified herein",
+          "explanation": "The term 'certain software applications' is vague and does not specify what applications are being referred to.",
+          "suggested_improvement": "Specify the exact software applications or provide a reference to a detailed list or description."
+        },
+        {
+          "issue_type": "undefined technical terms or jargon",
+          "problematic_text": "user authentication, data management capabilities, reporting features, and integration with third-party APIs",
+          "explanation": "These terms are technical and may not be understood by all parties without definitions.",
+          "suggested_improvement": "Provide definitions or examples of what each term entails in the context of the Software."
+        },
+        {
+          "issue_type": "inconsistent terminology usage",
+          "problematic_text": "Exhibit A, which is incorporated herein by reference",
+          "explanation": "The term 'Exhibit A' is mentioned but not consistently referred to throughout the document.",
+          "suggested_improvement": "Ensure that 'Exhibit A' is consistently referenced and clearly linked to the relevant sections of the contract."
+        },
+        {
+          "issue_type": "overly complex sentences",
+          "problematic_text": "Upon full payment of all fees, Client shall own all intellectual property rights in the Software, including but not limited to copyrights, patents, and trade secrets.",
+          "explanation": "This sentence is long and contains multiple clauses that could be confusing.",
+          "suggested_improvement": "Break this sentence into two: 'Upon full payment of all fees, Client shall own all intellectual property rights in the Software. This includes copyrights, patents, and trade secrets.'"
+        },
+        {
+          "issue_type": "missing definitions for key terms",
+          "problematic_text": "Time is of the essence",
+          "explanation": "This legal phrase is not defined in the context of the contract.",
+          "suggested_improvement": "Provide a definition or explanation of what 'Time is of the essence' means in this contract."
+        }
+      ],
+      "clarity_score": 7,
+      "summary": "The contract is generally clear but contains some vague terms, undefined technical jargon, and inconsistent terminology usage. Simplifying complex sentences and providing definitions for key terms would enhance clarity. Addressing these issues can improve the contract's comprehensibility and reduce potential misunderstandings."
+    },
+    "redline_suggestions": {
+      "redline_suggestions": [
+        {
+          "change_type": "modify",
+          "original_text": "IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF OR RELATED TO THIS AGREEMENT, REGARDLESS OF THE THEORY OF LIABILITY. COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED THE TOTAL FEES PAID BY CLIENT UNDER THIS AGREEMENT.",
+          "proposed_text": "EXCEPT FOR DAMAGES ARISING FROM COMPANY'S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT, IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF OR RELATED TO THIS AGREEMENT. COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED TWO TIMES THE TOTAL FEES PAID BY CLIENT UNDER THIS AGREEMENT.",
+          "rationale": "To ensure that the liability cap is more equitable and provides adequate coverage for potential damages, while also excluding liability for gross negligence or willful misconduct.",
+          "risk_addressed": "One-sided Provisions, Excessive Liability Exposure",
+          "priority": "Critical",
+          "section_reference": "6. LIMITATION OF LIABILITY"
+        },
+        {
+          "change_type": "add",
+          "original_text": "",
+          "proposed_text": "Company shall maintain at its own expense, during the term of this Agreement, insurance coverage including general liability, professional liability, and cyber liability insurance with limits not less than $1,000,000 per occurrence and $3,000,000 in aggregate.",
+          "rationale": "To ensure that the Company has adequate insurance coverage to mitigate potential risks and liabilities.",
+          "risk_addressed": "Missing Risk Mitigation Clauses",
+          "priority": "High",
+          "section_reference": "New Section: INSURANCE"
+        },
+        {
+          "change_type": "add",
+          "original_text": "",
+          "proposed_text": "Company shall indemnify, defend, and hold harmless Client from and against any and all claims, damages, losses, and expenses arising out of or resulting from Company's performance under this Agreement, except to the extent caused by Client's negligence or willful misconduct.",
+          "rationale": "To provide a clear indemnification clause that protects the Client from third-party claims related to the Company's performance.",
+          "risk_addressed": "Missing Risk Mitigation Clauses",
+          "priority": "High",
+          "section_reference": "New Section: INDEMNIFICATION"
+        },
+        {
+          "change_type": "add",
+          "original_text": "",
+          "proposed_text": "Company warrants that it will comply with all applicable data protection laws and regulations, including but not limited to the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA), in the performance of its obligations under this Agreement.",
+          "rationale": "To ensure compliance with relevant data protection laws, which is critical given the software's data management capabilities.",
+          "risk_addressed": "Compliance and Regulatory Risks",
+          "priority": "Critical",
+          "section_reference": "New Section: DATA PROTECTION COMPLIANCE"
+        }
+      ],
+      "new_clauses_needed": [
+        {
+          "clause_type": "Data Protection Compliance",
+          "proposed_language": "Company warrants that it will comply with all applicable data protection laws and regulations, including but not limited to the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA), in the performance of its obligations under this Agreement.",
+          "justification": "To address compliance and regulatory risks associated with data management capabilities of the software.",
+          "priority": "Critical"
+        },
+        {
+          "clause_type": "Insurance",
+          "proposed_language": "Company shall maintain at its own expense, during the term of this Agreement, insurance coverage including general liability, professional liability, and cyber liability insurance with limits not less than $1,000,000 per occurrence and $3,000,000 in aggregate.",
+          "justification": "To mitigate risks by ensuring adequate insurance coverage.",
+          "priority": "High"
+        },
+        {
+          "clause_type": "Indemnification",
+          "proposed_language": "Company shall indemnify, defend, and hold harmless Client from and against any and all claims, damages, losses, and expenses arising out of or resulting from Company's performance under this Agreement, except to the extent caused by Client's negligence or willful misconduct.",
+          "justification": "To protect the Client from third-party claims related to the Company's performance.",
+          "priority": "High"
+        }
+      ],
+      "negotiation_strategy": {
+        "key_positions": [
+          "Increase liability cap to ensure adequate coverage for potential damages.",
+          "Include indemnification and insurance clauses to mitigate risks."
+        ],
+        "fallback_options": [
+          "Agree to a slightly lower liability cap if insurance coverage is increased.",
+          "Accept a narrower indemnification clause if insurance limits are raised."
+        ],
+        "deal_breakers": [
+          "Refusal to include data protection compliance clause.",
+          "No increase in liability cap or insurance coverage."
+        ]
+      },
+      "summary": {
+        "total_suggestions": 4,
+        "critical_changes": 2,
+        "estimated_risk_reduction": "Significant reduction in liability exposure and improved compliance with data protection regulations."
+      }
+    },
+    "change_prioritization": {
+      "implementation_phases": {
+        "phase_1_critical": {
+          "changes": [
+            {
+              "change_type": "modify",
+              "original_text": "IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF OR RELATED TO THIS AGREEMENT, REGARDLESS OF THE THEORY OF LIABILITY. COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED THE TOTAL FEES PAID BY CLIENT UNDER THIS AGREEMENT.",
+              "proposed_text": "EXCEPT FOR DAMAGES ARISING FROM COMPANY'S GROSS NEGLIGENCE OR WILLFUL MISCONDUCT, IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF OR RELATED TO THIS AGREEMENT. COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED TWO TIMES THE TOTAL FEES PAID BY CLIENT UNDER THIS AGREEMENT.",
+              "rationale": "To ensure that the liability cap is more equitable and provides adequate coverage for potential damages, while also excluding liability for gross negligence or willful misconduct.",
+              "risk_addressed": "One-sided Provisions, Excessive Liability Exposure",
+              "priority": "Critical",
+              "section_reference": "6. LIMITATION OF LIABILITY"
+            },
+            {
+              "change_type": "add",
+              "original_text": "",
+              "proposed_text": "Company warrants that it will comply with all applicable data protection laws and regulations, including but not limited to the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA), in the performance of its obligations under this Agreement.",
+              "rationale": "To ensure compliance with relevant data protection laws, which is critical given the software's data management capabilities.",
+              "risk_addressed": "Compliance and Regulatory Risks",
+              "priority": "Critical",
+              "section_reference": "New Section: DATA PROTECTION COMPLIANCE"
+            }
+          ],
+          "timeline": "Address before any signing",
+          "negotiation_approach": "Non-negotiable positions"
+        },
+        "phase_2_high": {
+          "changes": [
+            {
+              "change_type": "add",
+              "original_text": "",
+              "proposed_text": "Company shall maintain at its own expense, during the term of this Agreement, insurance coverage including general liability, professional liability, and cyber liability insurance with limits not less than $1,000,000 per occurrence and $3,000,000 in aggregate.",
+              "rationale": "To ensure that the Company has adequate insurance coverage to mitigate potential risks and liabilities.",
+              "risk_addressed": "Missing Risk Mitigation Clauses",
+              "priority": "High",
+              "section_reference": "New Section: INSURANCE"
+            },
+            {
+              "change_type": "add",
+              "original_text": "",
+              "proposed_text": "Company shall indemnify, defend, and hold harmless Client from and against any and all claims, damages, losses, and expenses arising out of or resulting from Company's performance under this Agreement, except to the extent caused by Client's negligence or willful misconduct.",
+              "rationale": "To provide a clear indemnification clause that protects the Client from third-party claims related to the Company's performance.",
+              "risk_addressed": "Missing Risk Mitigation Clauses",
+              "priority": "High",
+              "section_reference": "New Section: INDEMNIFICATION"
+            }
+          ],
+          "timeline": "Primary negotiation focus",
+          "negotiation_approach": "Strong preference, willing to trade"
+        },
+        "phase_3_medium": {
+          "changes": [],
+          "timeline": "Secondary negotiation items",
+          "negotiation_approach": "Nice to have improvements"
+        }
+      },
+      "negotiation_roadmap": {
+        "must_have_count": 2,
+        "high_priority_count": 2,
+        "total_items": 4
+      }
+    }
+  },
+  "executive_summary": {
+    "contract_overview": {
+      "clauses_analyzed": 7,
+      "high_importance_clauses": 6,
+      "risks_identified": 8,
+      "high_severity_risks": 3,
+      "redline_suggestions": 4,
+      "critical_changes_needed": 2
+    },
+    "overall_assessment": {
+      "risk_level": "HIGH",
+      "contract_quality": "NEEDS_IMPROVEMENT",
+      "recommended_action": "Negotiate more balanced liability terms, include indemnification and insurance clauses, and ensure compliance with relevant data protection regulations.",
+      "key_concerns": [
+        "Limitation of liability heavily favors the Company.",
+        "Lack of specific risk mitigation clauses.",
+        "Potential non-compliance with data protection laws."
+      ]
+    }
+  },
+  "next_steps": [
+    "Address 2 critical redline suggestions before proceeding",
+    "Mitigate 3 high-severity risks identified",
+    "Review all redline suggestions with legal counsel",
+    "Negotiate key terms with counterparty",
+    "Obtain final legal approval before signing"
+  ]
+}

@@ -1,0 +1,415 @@
+{% extends "base.html" %}
+
+{% block title %}Contract Reviewer Crew - AI-Powered Legal Analysis{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-primary mb-3">
+        <i class="fas fa-gavel me-3"></i>
+        Contract Reviewer Crew
+    </h1>
+    <p class="lead text-muted">AI-powered contract analysis using specialized agents for clause detection, risk assessment, and redline suggestions</p>
+</div>
+
+<!-- Features Section -->
+<div class="row mb-5">
+    <div class="col-md-4 mb-4">
+        <div class="feature-card text-center">
+            <div class="feature-icon icon-detect">
+                <i class="fas fa-search"></i>
+            </div>
+            <h5 class="fw-bold">Clause Detection</h5>
+            <p class="text-muted">Automatically identifies key legal clauses like indemnity, termination, and exclusivity provisions</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="feature-card text-center">
+            <div class="feature-icon icon-risk">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h5 class="fw-bold">Risk Analysis</h5>
+            <p class="text-muted">Flags vague language, one-sided provisions, and potential legal exposures with severity ratings</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="feature-card text-center">
+            <div class="feature-icon icon-redline">
+                <i class="fas fa-edit"></i>
+            </div>
+            <h5 class="fw-bold">Redline Suggestions</h5>
+            <p class="text-muted">Provides specific amendments and negotiation strategies to improve contract terms</p>
+        </div>
+    </div>
+</div>
+
+<!-- Upload Section -->
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card border-0 shadow-lg">
+            <div class="card-body p-4">
+                <h3 class="card-title text-center mb-4">Upload Contract for Analysis</h3>
+                
+                <!-- File Upload -->
+                <div class="upload-zone" id="uploadZone">
+                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                    <h5>Drag & drop your contract here</h5>
+                    <p class="text-muted">or click to browse files</p>
+                    <input type="file" id="contractFile" class="d-none" accept=".txt,.pdf,.docx,.doc">
+                    <small class="text-muted">Supports: .txt, .pdf, .docx files (max 10MB)</small>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button class="btn btn-primary btn-lg me-3" id="analyzeBtn" disabled>
+                        <i class="fas fa-play me-2"></i>
+                        Analyze Contract
+                    </button>
+                    <button class="btn btn-outline-secondary btn-lg" id="sampleBtn">
+                        <i class="fas fa-file-alt me-2"></i>
+                        Try Sample Contract
+                    </button>
+                </div>
+
+                <!-- Progress Section -->
+                <div id="progressSection" class="mt-4 d-none">
+                    <div class="text-center">
+                        <div class="spinner-border spinner-border-custom text-primary mb-3" role="status">
+                            <span class="visually-hidden">Analyzing...</span>
+                        </div>
+                        <h5 id="progressText">Initializing AI agents...</h5>
+                        <div class="progress mt-3">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                 role="progressbar" style="width: 0%" id="progressBar"></div>
+                        </div>
+                        <small class="text-muted mt-2 d-block" id="progressDetail">Setting up contract review system...</small>
+                    </div>
+                </div>
+
+                <!-- Status Messages -->
+                <div id="statusMessages" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Results Section -->
+<div id="resultsSection" class="mt-5 d-none">
+    <div class="card border-0 shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">
+                <i class="fas fa-chart-line me-2"></i>
+                Contract Analysis Results
+            </h4>
+        </div>
+        <div class="card-body">
+            <div id="resultsContent">
+                <!-- Results will be populated here -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('contractFile');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const sampleBtn = document.getElementById('sampleBtn');
+    const progressSection = document.getElementById('progressSection');
+    const resultsSection = document.getElementById('resultsSection');
+    const statusMessages = document.getElementById('statusMessages');
+
+    let selectedFile = null;
+
+    // File upload handlers
+    uploadZone.addEventListener('click', () => fileInput.click());
+    uploadZone.addEventListener('dragover', handleDragOver);
+    uploadZone.addEventListener('dragleave', handleDragLeave);
+    uploadZone.addEventListener('drop', handleDrop);
+    fileInput.addEventListener('change', handleFileSelect);
+    analyzeBtn.addEventListener('click', analyzeContract);
+    sampleBtn.addEventListener('click', analyzeSample);
+
+    function handleDragOver(e) {
+        e.preventDefault();
+        uploadZone.classList.add('dragover');
+    }
+
+    function handleDragLeave(e) {
+        e.preventDefault();
+        uploadZone.classList.remove('dragover');
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        uploadZone.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            handleFileSelect({ target: { files: files } });
+        }
+    }
+
+    function handleFileSelect(e) {
+        const file = e.target.files[0];
+        if (file) {
+            selectedFile = file;
+            updateUploadZone(file.name);
+            analyzeBtn.disabled = false;
+        }
+    }
+
+    function updateUploadZone(filename) {
+        uploadZone.innerHTML = `
+            <i class="fas fa-file-check fa-3x text-success mb-3"></i>
+            <h5 class="text-success">File Selected</h5>
+            <p class="text-muted">${filename}</p>
+            <small class="text-muted">Click to select a different file</small>
+        `;
+    }
+
+    function showStatus(message, type = 'info') {
+        const alertClass = type === 'error' ? 'alert-danger' : 
+                          type === 'success' ? 'alert-success' : 'alert-info';
+        statusMessages.innerHTML = `
+            <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `;
+    }
+
+    function showProgress(show = true) {
+        progressSection.classList.toggle('d-none', !show);
+        if (!show) {
+            document.getElementById('progressBar').style.width = '0%';
+        }
+    }
+
+    function updateProgress(percentage, text, detail) {
+        document.getElementById('progressBar').style.width = percentage + '%';
+        document.getElementById('progressText').textContent = text;
+        document.getElementById('progressDetail').textContent = detail;
+    }
+
+    function analyzeContract() {
+        if (!selectedFile) return;
+
+        const formData = new FormData();
+        formData.append('contract_file', selectedFile);
+
+        showProgress(true);
+        resultsSection.classList.add('d-none');
+        statusMessages.innerHTML = '';
+
+        // Simulate progress updates
+        updateProgress(10, 'Uploading contract...', 'Processing file upload');
+        
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            updateProgress(30, 'Extracting text...', 'Reading contract content');
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                updateProgress(50, 'Detecting clauses...', 'AI agents analyzing contract structure');
+                setTimeout(() => {
+                    updateProgress(70, 'Analyzing risks...', 'Identifying potential legal issues');
+                    setTimeout(() => {
+                        updateProgress(90, 'Generating suggestions...', 'Creating redline recommendations');
+                        setTimeout(() => {
+                            updateProgress(100, 'Analysis complete!', 'Preparing results');
+                            setTimeout(() => {
+                                showProgress(false);
+                                displayResults(data);
+                            }, 1000);
+                        }, 1500);
+                    }, 1500);
+                }, 1500);
+            } else {
+                showProgress(false);
+                showStatus(data.error || 'Analysis failed', 'error');
+            }
+        })
+        .catch(error => {
+            showProgress(false);
+            showStatus('Upload failed: ' + error.message, 'error');
+        });
+    }
+
+    function analyzeSample() {
+        showProgress(true);
+        resultsSection.classList.add('d-none');
+        statusMessages.innerHTML = '';
+
+        updateProgress(20, 'Loading sample contract...', 'Using demonstration contract');
+        
+        fetch('/analyze_sample')
+        .then(response => {
+            updateProgress(40, 'Detecting clauses...', 'AI agents analyzing contract structure');
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                updateProgress(60, 'Analyzing risks...', 'Identifying potential legal issues');
+                setTimeout(() => {
+                    updateProgress(80, 'Generating suggestions...', 'Creating redline recommendations');
+                    setTimeout(() => {
+                        updateProgress(100, 'Analysis complete!', 'Preparing results');
+                        setTimeout(() => {
+                            showProgress(false);
+                            displayResults(data);
+                        }, 1000);
+                    }, 1000);
+                }, 1000);
+            } else {
+                showProgress(false);
+                showStatus(data.error || 'Analysis failed', 'error');
+            }
+        })
+        .catch(error => {
+            showProgress(false);
+            showStatus('Analysis failed: ' + error.message, 'error');
+        });
+    }
+
+    function displayResults(data) {
+        const results = data.results;
+        const summary = results.executive_summary;
+        const overview = summary.contract_overview;
+        const assessment = summary.overall_assessment;
+
+        const riskLevel = assessment.risk_level;
+        const riskBadgeClass = riskLevel === 'HIGH' ? 'status-high' : 
+                              riskLevel === 'MEDIUM' ? 'status-medium' : 'status-low';
+        const riskIcon = riskLevel === 'HIGH' ? 'fas fa-exclamation-circle' : 
+                        riskLevel === 'MEDIUM' ? 'fas fa-exclamation-triangle' : 'fas fa-check-circle';
+
+        const resultsHtml = `
+            <div class="row">
+                <div class="col-md-8">
+                    <h5 class="mb-3">Executive Summary</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card bg-light h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-list-ul fa-2x text-primary mb-2"></i>
+                                    <h4 class="mb-1">${overview.clauses_analyzed || 0}</h4>
+                                    <small class="text-muted">Clauses Analyzed</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card bg-light h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-exclamation-triangle fa-2x text-warning mb-2"></i>
+                                    <h4 class="mb-1">${overview.risks_identified || 0}</h4>
+                                    <small class="text-muted">Risks Found</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card bg-light h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-edit fa-2x text-info mb-2"></i>
+                                    <h4 class="mb-1">${overview.redline_suggestions || 0}</h4>
+                                    <small class="text-muted">Suggestions</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="card bg-light h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-flag fa-2x text-danger mb-2"></i>
+                                    <h4 class="mb-1">${overview.critical_changes_needed || 0}</h4>
+                                    <small class="text-muted">Critical Changes</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Overall Assessment</h5>
+                    <div class="card bg-light h-100">
+                        <div class="card-body text-center">
+                            <i class="${riskIcon} fa-3x mb-3" style="color: ${riskLevel === 'HIGH' ? '#dc2626' : riskLevel === 'MEDIUM' ? '#d97706' : '#059669'}"></i>
+                            <h4 class="mb-2">Risk Level</h4>
+                            <span class="status-badge ${riskBadgeClass}">${riskLevel}</span>
+                            <p class="text-muted mt-3 small">${assessment.recommended_action || 'Review recommended'}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            ${assessment.key_concerns && assessment.key_concerns.length > 0 ? `
+            <div class="mt-4">
+                <h5 class="mb-3">Key Concerns</h5>
+                <div class="list-group">
+                    ${assessment.key_concerns.slice(0, 5).map(concern => `
+                        <div class="list-group-item">
+                            <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                            ${concern}
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            ` : ''}
+
+            ${results.next_steps && results.next_steps.length > 0 ? `
+            <div class="mt-4">
+                <h5 class="mb-3">Recommended Next Steps</h5>
+                <div class="list-group">
+                    ${results.next_steps.slice(0, 5).map((step, index) => `
+                        <div class="list-group-item">
+                            <span class="badge bg-primary me-2">${index + 1}</span>
+                            ${step}
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            ` : ''}
+
+            <div class="mt-4 text-center">
+                <button class="btn btn-success me-2" onclick="downloadResults()">
+                    <i class="fas fa-download me-2"></i>
+                    Download Full Report
+                </button>
+                <button class="btn btn-outline-primary" onclick="startNewAnalysis()">
+                    <i class="fas fa-plus me-2"></i>
+                    Analyze Another Contract
+                </button>
+            </div>
+        `;
+
+        document.getElementById('resultsContent').innerHTML = resultsHtml;
+        resultsSection.classList.remove('d-none');
+        
+        // Scroll to results
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+        showStatus(`Analysis completed for "${data.filename}"! Found ${overview.risks_identified || 0} risks and ${overview.redline_suggestions || 0} improvement suggestions.`, 'success');
+    }
+
+    window.downloadResults = function() {
+        showStatus('Full report download feature coming soon!', 'info');
+    };
+
+    window.startNewAnalysis = function() {
+        selectedFile = null;
+        analyzeBtn.disabled = true;
+        resultsSection.classList.add('d-none');
+        statusMessages.innerHTML = '';
+        
+        uploadZone.innerHTML = `
+            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+            <h5>Drag & drop your contract here</h5>
+            <p class="text-muted">or click to browse files</p>
+            <small class="text-muted">Supports: .txt, .pdf, .docx files (max 10MB)</small>
+        `;
+    };
+});
+</script>
+{% endblock %}
