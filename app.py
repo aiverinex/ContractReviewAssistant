@@ -114,10 +114,10 @@ def upload_file():
             if not results.get('success'):
                 return jsonify({'error': f"Analysis failed: {results.get('error', 'Unknown error')}"}), 500
             
-            # Don't save results permanently - just return them for immediate use
-            # save_review_results(results)  # Disabled to prevent data storage
+            # Save results temporarily for PDF generation
+            save_review_results(results)
             
-            # Clean up uploaded file immediately
+            # Clean up uploaded file immediately after processing
             os.remove(file_path)
             print(f"🗑️ Cleaned up uploaded file: {file_path}")
             
@@ -158,7 +158,60 @@ def download_report(filename):
 @app.route('/download/latest')
 def download_latest_report():
     """Download the most recent report as a professional PDF."""
-    return jsonify({'error': 'No report available. Please analyze a contract first.'}), 404
+    try:
+        output_dir = Path("output")
+        if not output_dir.exists():
+            return jsonify({'error': 'No reports available'}), 404
+        
+        # Find the most recent JSON file
+        json_files = list(output_dir.glob("review_summary_*.json"))
+        if not json_files:
+            return jsonify({'error': 'No reports found'}), 404
+        
+        latest_file = max(json_files, key=lambda f: f.stat().st_mtime)
+        
+        # Load the results data
+        with open(latest_file, 'r', encoding='utf-8') as file:
+            results = json.load(file)
+        
+        # Generate professional PDF report
+        from utils.pdf_report_generator import pdf_generator
+        pdf_path = pdf_generator.generate_report(results)
+        
+        # Schedule cleanup after download completes (10 seconds delay)
+        def cleanup_after_download():
+            import time
+            time.sleep(10)  # Wait for download to complete
+            try:
+                # Delete the generated PDF
+                if os.path.exists(pdf_path):
+                    os.remove(pdf_path)
+                    print(f"🗑️ Cleaned up PDF report: {pdf_path}")
+                
+                # Delete the JSON and TXT result files
+                if os.path.exists(latest_file):
+                    os.remove(latest_file)
+                    print(f"🗑️ Cleaned up JSON results: {latest_file}")
+                
+                # Delete corresponding TXT file
+                txt_file = str(latest_file).replace('.json', '.txt')
+                if os.path.exists(txt_file):
+                    os.remove(txt_file)
+                    print(f"🗑️ Cleaned up TXT results: {txt_file}")
+                    
+            except Exception as e:
+                print(f"⚠️ Warning: Could not clean up files: {e}")
+        
+        # Start cleanup in background thread after download
+        import threading
+        cleanup_thread = threading.Thread(target=cleanup_after_download)
+        cleanup_thread.daemon = True
+        cleanup_thread.start()
+        
+        return send_file(pdf_path, as_attachment=True, download_name='contract_analysis_report.pdf')
+        
+    except Exception as e:
+        return jsonify({'error': f'PDF generation failed: {str(e)}'}), 500
 
 @app.route('/api/status')
 def api_status():
