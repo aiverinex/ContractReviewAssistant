@@ -22,7 +22,7 @@ class OCRHandler:
     def __init__(self):
         """Initialize OCR handler with Tesseract configuration."""
         # Configure Tesseract for better contract text recognition
-        self.tesseract_config = '--oem 3 --psm 6 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,;:!?()[]{}"\'-/$%&@#*+=<>|\\~`^_ \n\t'
+        self.tesseract_config = '--oem 3 --psm 6'
     
     def is_pdf_image_based(self, pdf_path: str) -> bool:
         """
