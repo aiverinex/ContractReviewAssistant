@@ -132,36 +132,7 @@ def upload_file():
     except Exception as e:
         return jsonify({'error': f'Upload failed: {str(e)}'}), 500
 
-@app.route('/analyze_sample')
-def analyze_sample():
-    """Analyze the sample contract."""
-    try:
-        # Load sample contract
-        sample_path = Path("sample_data/sample_contract.txt")
-        if not sample_path.exists():
-            return jsonify({'error': 'Sample contract not found'}), 404
-        
-        with open(sample_path, 'r', encoding='utf-8') as file:
-            contract_text = file.read()
-        
-        # Run analysis
-        crew = ContractReviewCrew()
-        results = crew.review_contract(contract_text)
-        
-        if not results.get('success'):
-            return jsonify({'error': f"Analysis failed: {results.get('error', 'Unknown error')}"}), 500
-        
-        # Save results
-        save_review_results(results)
-        
-        return jsonify({
-            'success': True,
-            'results': results,
-            'filename': 'Sample Contract'
-        })
-        
-    except Exception as e:
-        return jsonify({'error': f'Sample analysis failed: {str(e)}'}), 500
+
 
 @app.route('/results/<result_id>')
 def view_results(result_id):

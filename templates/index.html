@@ -72,13 +72,9 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <button class="btn btn-primary btn-lg me-3" id="analyzeBtn" disabled>
+                    <button class="btn btn-primary btn-lg" id="analyzeBtn" disabled>
                         <i class="fas fa-play me-2"></i>
                         Analyze Contract
-                    </button>
-                    <button class="btn btn-outline-secondary btn-lg" id="sampleBtn">
-                        <i class="fas fa-file-alt me-2"></i>
-                        Try Sample Contract
                     </button>
                 </div>
 
@@ -142,7 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
     uploadZone.addEventListener('drop', handleDrop);
     fileInput.addEventListener('change', handleFileSelect);
     analyzeBtn.addEventListener('click', analyzeContract);
-    sampleBtn.addEventListener('click', analyzeSample);
 
     function handleDragOver(e) {
         e.preventDefault();
@@ -253,41 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function analyzeSample() {
-        showProgress(true);
-        resultsSection.classList.add('d-none');
-        statusMessages.innerHTML = '';
 
-        updateProgress(20, 'Loading sample contract...', 'Using demonstration contract');
-        
-        fetch('/analyze_sample')
-        .then(response => {
-            updateProgress(40, 'Detecting clauses...', 'AI agents analyzing contract structure');
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                updateProgress(60, 'Analyzing risks...', 'Identifying potential legal issues');
-                setTimeout(() => {
-                    updateProgress(80, 'Generating suggestions...', 'Creating redline recommendations');
-                    setTimeout(() => {
-                        updateProgress(100, 'Analysis complete!', 'Preparing results');
-                        setTimeout(() => {
-                            showProgress(false);
-                            displayResults(data);
-                        }, 1000);
-                    }, 1000);
-                }, 1000);
-            } else {
-                showProgress(false);
-                showStatus(data.error || 'Analysis failed', 'error');
-            }
-        })
-        .catch(error => {
-            showProgress(false);
-            showStatus('Analysis failed: ' + error.message, 'error');
-        });
-    }
 
     function displayResults(data) {
         const results = data.results;
