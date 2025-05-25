@@ -161,6 +161,40 @@ def view_results(result_id):
     """View detailed results page."""
     return render_template('results.html', result_id=result_id)
 
+@app.route('/download/<filename>')
+def download_report(filename):
+    """Download a specific report file."""
+    try:
+        output_dir = Path("output")
+        file_path = output_dir / filename
+        
+        if not file_path.exists():
+            return jsonify({'error': 'File not found'}), 404
+        
+        return send_file(file_path, as_attachment=True)
+        
+    except Exception as e:
+        return jsonify({'error': f'Download failed: {str(e)}'}), 500
+
+@app.route('/download/latest')
+def download_latest_report():
+    """Download the most recent report."""
+    try:
+        output_dir = Path("output")
+        if not output_dir.exists():
+            return jsonify({'error': 'No reports available'}), 404
+        
+        # Find the most recent JSON file
+        json_files = list(output_dir.glob("review_summary_*.json"))
+        if not json_files:
+            return jsonify({'error': 'No reports found'}), 404
+        
+        latest_file = max(json_files, key=lambda f: f.stat().st_mtime)
+        return send_file(latest_file, as_attachment=True)
+        
+    except Exception as e:
+        return jsonify({'error': f'Download failed: {str(e)}'}), 500
+
 @app.route('/api/status')
 def api_status():
     """Check API and system status."""
