@@ -24,7 +24,6 @@ class PDFReportGenerator:
     def __init__(self):
         """Initialize PDF report generator with styling."""
         self.styles = getSampleStyleSheet()
-        self.setup_custom_styles()
         
         # Color scheme
         self.primary_color = HexColor('#2563eb')
@@ -34,88 +33,101 @@ class PDFReportGenerator:
         self.danger_color = HexColor('#dc2626')
         self.light_gray = HexColor('#f8fafc')
         self.dark_gray = HexColor('#64748b')
+        
+        self.setup_custom_styles()
     
     def setup_custom_styles(self):
         """Set up custom paragraph styles for the report."""
+        # Check if styles already exist to avoid conflicts
+        style_names = [style.name for style in self.styles.byName.values()]
+        
         # Title style
-        self.styles.add(ParagraphStyle(
-            name='ReportTitle',
-            parent=self.styles['Title'],
-            fontSize=24,
-            spaceAfter=30,
-            textColor=HexColor('#1e40af'),
-            alignment=TA_CENTER,
-            fontName='Helvetica-Bold'
-        ))
+        if 'ReportTitle' not in style_names:
+            self.styles.add(ParagraphStyle(
+                name='ReportTitle',
+                parent=self.styles['Title'],
+                fontSize=24,
+                spaceAfter=30,
+                textColor=HexColor('#1e40af'),
+                alignment=TA_CENTER,
+                fontName='Helvetica-Bold'
+            ))
         
         # Section header style
-        self.styles.add(ParagraphStyle(
-            name='SectionHeader',
-            parent=self.styles['Heading1'],
-            fontSize=16,
-            spaceAfter=20,
-            spaceBefore=30,
-            textColor=HexColor('#2563eb'),
-            fontName='Helvetica-Bold'
-        ))
+        if 'SectionHeader' not in style_names:
+            self.styles.add(ParagraphStyle(
+                name='SectionHeader',
+                parent=self.styles['Heading1'],
+                fontSize=16,
+                spaceAfter=20,
+                spaceBefore=30,
+                textColor=HexColor('#2563eb'),
+                fontName='Helvetica-Bold'
+            ))
         
         # Subsection header style
-        self.styles.add(ParagraphStyle(
-            name='SubsectionHeader',
-            parent=self.styles['Heading2'],
-            fontSize=14,
-            spaceAfter=15,
-            spaceBefore=20,
-            textColor=HexColor('#374151'),
-            fontName='Helvetica-Bold'
-        ))
+        if 'SubsectionHeader' not in style_names:
+            self.styles.add(ParagraphStyle(
+                name='SubsectionHeader',
+                parent=self.styles['Heading2'],
+                fontSize=14,
+                spaceAfter=15,
+                spaceBefore=20,
+                textColor=HexColor('#374151'),
+                fontName='Helvetica-Bold'
+            ))
         
         # Body text style
-        self.styles.add(ParagraphStyle(
-            name='BodyText',
-            parent=self.styles['Normal'],
-            fontSize=11,
-            spaceAfter=12,
-            leading=14,
-            textColor=HexColor('#374151'),
-            alignment=TA_JUSTIFY
-        ))
+        if 'BodyText' not in style_names:
+            self.styles.add(ParagraphStyle(
+                name='BodyText',
+                parent=self.styles['Normal'],
+                fontSize=11,
+                spaceAfter=12,
+                leading=14,
+                textColor=HexColor('#374151'),
+                alignment=TA_JUSTIFY
+            ))
         
         # Bullet point style
-        self.styles.add(ParagraphStyle(
-            name='BulletPoint',
-            parent=self.styles['Normal'],
-            fontSize=11,
-            spaceAfter=8,
-            leftIndent=20,
-            bulletIndent=10,
-            textColor=HexColor('#374151')
-        ))
+        if 'BulletPoint' not in style_names:
+            self.styles.add(ParagraphStyle(
+                name='BulletPoint',
+                parent=self.styles['Normal'],
+                fontSize=11,
+                spaceAfter=8,
+                leftIndent=20,
+                bulletIndent=10,
+                textColor=HexColor('#374151')
+            ))
         
         # Risk level styles
-        self.styles.add(ParagraphStyle(
-            name='HighRisk',
-            parent=self.styles['Normal'],
-            fontSize=11,
-            textColor=self.danger_color,
-            fontName='Helvetica-Bold'
-        ))
+        if 'HighRisk' not in style_names:
+            self.styles.add(ParagraphStyle(
+                name='HighRisk',
+                parent=self.styles['Normal'],
+                fontSize=11,
+                textColor=self.danger_color,
+                fontName='Helvetica-Bold'
+            ))
         
-        self.styles.add(ParagraphStyle(
-            name='MediumRisk',
-            parent=self.styles['Normal'],
-            fontSize=11,
-            textColor=self.warning_color,
-            fontName='Helvetica-Bold'
-        ))
+        if 'MediumRisk' not in style_names:
+            self.styles.add(ParagraphStyle(
+                name='MediumRisk',
+                parent=self.styles['Normal'],
+                fontSize=11,
+                textColor=self.warning_color,
+                fontName='Helvetica-Bold'
+            ))
         
-        self.styles.add(ParagraphStyle(
-            name='LowRisk',
-            parent=self.styles['Normal'],
-            fontSize=11,
-            textColor=self.success_color,
-            fontName='Helvetica-Bold'
-        ))
+        if 'LowRisk' not in style_names:
+            self.styles.add(ParagraphStyle(
+                name='LowRisk',
+                parent=self.styles['Normal'],
+                fontSize=11,
+                textColor=self.success_color,
+                fontName='Helvetica-Bold'
+            ))
     
     def generate_report(self, results: Dict[Any, Any], filename: str = None) -> str:
         """
