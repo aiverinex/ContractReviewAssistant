@@ -56,10 +56,7 @@ class PDFReportGenerator:
             spaceAfter=20,
             spaceBefore=30,
             textColor=HexColor('#2563eb'),
-            fontName='Helvetica-Bold',
-            borderWidth=0,
-            borderColor=HexColor('#e2e8f0'),
-            borderPadding=5
+            fontName='Helvetica-Bold'
         ))
         
         # Subsection header style
