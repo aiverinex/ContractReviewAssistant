@@ -185,7 +185,7 @@ def download_report(filename):
 
 @app.route('/download/latest')
 def download_latest_report():
-    """Download the most recent report."""
+    """Download the most recent report as a professional PDF."""
     try:
         output_dir = Path("output")
         if not output_dir.exists():
@@ -197,10 +197,19 @@ def download_latest_report():
             return jsonify({'error': 'No reports found'}), 404
         
         latest_file = max(json_files, key=lambda f: f.stat().st_mtime)
-        return send_file(latest_file, as_attachment=True)
+        
+        # Load the results data
+        with open(latest_file, 'r', encoding='utf-8') as file:
+            results = json.load(file)
+        
+        # Generate professional PDF report
+        from utils.pdf_report_generator import pdf_generator
+        pdf_path = pdf_generator.generate_report(results)
+        
+        return send_file(pdf_path, as_attachment=True, download_name='contract_analysis_report.pdf')
         
     except Exception as e:
-        return jsonify({'error': f'Download failed: {str(e)}'}), 500
+        return jsonify({'error': f'PDF generation failed: {str(e)}'}), 500
 
 @app.route('/api/status')
 def api_status():
