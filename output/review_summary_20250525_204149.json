@@ -1,0 +1,337 @@
+{
+  "success": true,
+  "contract_analysis": {
+    "clause_detection": {
+      "detected_clauses": [
+        {
+          "clause_type": "Payment terms",
+          "clause_text": "Client agrees to pay Company a total fee of $150,000 for the development services. Payment shall be made according to the following schedule: - $30,000 upon execution of this Agreement - $40,000 upon completion of initial design phase - $40,000 upon delivery of beta version - $40,000 upon final delivery and acceptance. All payments are due within thirty (30) days of invoice. Late payments shall accrue interest at the rate of 1.5% per month.",
+          "location_context": "Section 2: PAYMENT TERMS",
+          "importance_level": "High"
+        },
+        {
+          "clause_type": "Intellectual property",
+          "clause_text": "Upon full payment of all fees, Client shall own all intellectual property rights in the Software, including but not limited to copyrights, patents, and trade secrets. Company retains ownership of any pre-existing intellectual property and general methodologies used in development.",
+          "location_context": "Section 4: INTELLECTUAL PROPERTY",
+          "importance_level": "High"
+        },
+        {
+          "clause_type": "Limitation of liability",
+          "clause_text": "IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF OR RELATED TO THIS AGREEMENT, REGARDLESS OF THE THEORY OF LIABILITY. COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED THE TOTAL FEES PAID BY CLIENT UNDER THIS AGREEMENT.",
+          "location_context": "Section 6: LIMITATION OF LIABILITY",
+          "importance_level": "High"
+        },
+        {
+          "clause_type": "Confidentiality/Non-disclosure",
+          "clause_text": "Each party acknowledges that it may receive confidential information from the other party. Both parties agree to maintain the confidentiality of such information and not disclose it to third parties without prior written consent.",
+          "location_context": "Section 7: CONFIDENTIALITY",
+          "importance_level": "High"
+        },
+        {
+          "clause_type": "Termination",
+          "clause_text": "Either party may terminate this Agreement upon thirty (30) days written notice. In the event of termination, Client shall pay Company for all work performed through the date of termination. Company shall deliver all work product completed as of the termination date.",
+          "location_context": "Section 8: TERMINATION",
+          "importance_level": "High"
+        },
+        {
+          "clause_type": "Governing law",
+          "clause_text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to conflict of law principles.",
+          "location_context": "Section 9: GOVERNING LAW",
+          "importance_level": "Medium"
+        },
+        {
+          "clause_type": "Dispute resolution",
+          "clause_text": "Any disputes arising under this Agreement shall first be addressed through good faith negotiations. If negotiations fail, disputes shall be resolved through binding arbitration in accordance with the Commercial Arbitration Rules of the American Arbitration Association.",
+          "location_context": "Section 10: DISPUTE RESOLUTION",
+          "importance_level": "Medium"
+        }
+      ],
+      "clause_summary": {
+        "total_clauses_found": 7,
+        "high_importance_count": 6,
+        "coverage_assessment": "The contract covers essential legal clauses with a strong emphasis on payment terms, intellectual property rights, liability limitations, confidentiality, and termination, ensuring comprehensive protection for both parties."
+      }
+    },
+    "risk_analysis": {
+      "risk_analysis": [
+        {
+          "risk_type": "Vague or ambiguous language",
+          "risk_description": "The term 'reasonable extensions' in the timeline clause is vague and could lead to disputes regarding what constitutes a reasonable request for an extension.",
+          "severity_level": "Medium",
+          "affected_clause": "TIMELINE",
+          "potential_impact": "Disputes over project timelines could lead to delays and additional costs.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "One-sided provisions",
+          "risk_description": "The limitation of liability clause heavily favors the Company by excluding liability for indirect damages and capping total liability at the fees paid, which may not be sufficient in case of significant losses.",
+          "severity_level": "High",
+          "affected_clause": "LIMITATION OF LIABILITY",
+          "potential_impact": "Client may face substantial losses without recourse, leading to financial strain.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "Excessive liability exposure",
+          "risk_description": "The clause stating that the Company's total liability shall not exceed the total fees paid may expose the Client to excessive risk if the Software fails to perform as expected.",
+          "severity_level": "High",
+          "affected_clause": "LIMITATION OF LIABILITY",
+          "potential_impact": "Client could incur significant costs due to software failure without adequate compensation from the Company.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "Inadequate termination protections",
+          "risk_description": "The termination clause allows either party to terminate with only 30 days' notice, which may not provide sufficient protection for the Client if the Company fails to deliver satisfactory work.",
+          "severity_level": "Medium",
+          "affected_clause": "TERMINATION",
+          "potential_impact": "Client may be left without recourse if the Company does not meet expectations, leading to wasted resources.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "Missing risk mitigation clauses",
+          "risk_description": "The contract lacks clauses addressing risk mitigation strategies, such as insurance requirements or performance bonds, which could protect both parties in case of failure.",
+          "severity_level": "High",
+          "affected_clause": "N/A",
+          "potential_impact": "Increased risk of financial loss and disputes without clear mitigation strategies in place.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "Unreasonable obligations or commitments",
+          "risk_description": "The requirement for the Company to deliver the Software within six months may be unreasonable if unforeseen circumstances arise, especially without clear definitions of what constitutes such circumstances.",
+          "severity_level": "Medium",
+          "affected_clause": "TIMELINE",
+          "potential_impact": "Pressure on the Company could lead to rushed work and lower quality deliverables.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "Intellectual property risks",
+          "risk_description": "The clause regarding intellectual property rights may lead to disputes over ownership of any pre-existing intellectual property used in the development process.",
+          "severity_level": "Medium",
+          "affected_clause": "INTELLECTUAL PROPERTY",
+          "potential_impact": "Potential legal disputes over IP ownership could arise, leading to delays and additional costs.",
+          "likelihood": "Medium"
+        },
+        {
+          "risk_type": "Compliance and regulatory risks",
+          "risk_description": "The contract does not address compliance with applicable laws and regulations, which could expose both parties to legal risks if the Software does not meet regulatory standards.",
+          "severity_level": "High",
+          "affected_clause": "N/A",
+          "potential_impact": "Non-compliance could result in fines, legal action, and reputational damage for both parties.",
+          "likelihood": "Medium"
+        }
+      ],
+      "overall_risk_assessment": {
+        "total_risks_identified": 8,
+        "high_severity_count": 4,
+        "medium_severity_count": 4,
+        "low_severity_count": 0,
+        "overall_risk_score": 4,
+        "key_concerns": [
+          "One-sided limitation of liability",
+          "Inadequate termination protections",
+          "Lack of risk mitigation clauses",
+          "Compliance and regulatory risks"
+        ],
+        "recommended_action": "Revise the contract to clarify vague terms, balance liability provisions, include risk mitigation strategies, and ensure compliance with applicable laws."
+      }
+    },
+    "language_clarity": {
+      "clarity_issues": [
+        {
+          "issue_type": "Vague or ambiguous terms",
+          "problematic_text": "reasonable extensions due to scope changes or unforeseen circumstances",
+          "explanation": "The term 'reasonable extensions' is subjective and could lead to disputes regarding what constitutes a reasonable request.",
+          "suggested_improvement": "Define what constitutes 'reasonable extensions' and provide examples of scope changes or unforeseen circumstances."
+        },
+        {
+          "issue_type": "Undefined technical terms or jargon",
+          "problematic_text": "user authentication, data management capabilities, reporting features, and integration with third-party APIs",
+          "explanation": "These technical terms may not be understood by all parties involved, particularly if they lack technical expertise.",
+          "suggested_improvement": "Provide definitions or explanations for these technical terms in a glossary section of the contract."
+        },
+        {
+          "issue_type": "Inconsistent terminology usage",
+          "problematic_text": "Company, Client, Software",
+          "explanation": "The terms 'Company' and 'Client' are consistently used, but 'Software' is sometimes referred to as 'software application' and 'Software' interchangeably.",
+          "suggested_improvement": "Choose one term (either 'Software' or 'software application') and use it consistently throughout the document."
+        },
+        {
+          "issue_type": "Overly complex sentences",
+          "problematic_text": "In consideration of the mutual covenants contained herein, the parties agree as follows:",
+          "explanation": "This sentence is unnecessarily complex and could be simplified for better clarity.",
+          "suggested_improvement": "Simplify to: 'The parties agree to the following terms:'"
+        },
+        {
+          "issue_type": "Missing definitions for key terms",
+          "problematic_text": "Exhibit A",
+          "explanation": "Exhibit A is referenced but not defined within the contract, which could lead to confusion about its contents.",
+          "suggested_improvement": "Include a brief description of what Exhibit A contains or provide a definition section that outlines all exhibits referenced in the contract."
+        }
+      ],
+      "clarity_score": 65,
+      "summary": "The contract contains several clarity issues, including vague terms, undefined technical jargon, inconsistent terminology, overly complex sentences, and missing definitions for key terms. Addressing these issues will enhance understanding and reduce the potential for disputes."
+    },
+    "redline_suggestions": {
+      "redline_suggestions": [
+        {
+          "change_type": "delete",
+          "original_text": "IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF OR RELATED TO THIS AGREEMENT, REGARDLESS OF THE THEORY OF LIABILITY.",
+          "proposed_text": "IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF OR RELATED TO THIS AGREEMENT, REGARDLESS OF THE THEORY OF LIABILITY, EXCEPT IN CASE OF GROSS NEGLIGENCE OR WILLFUL MISCONDUCT.",
+          "rationale": "This change ensures that the Company is held accountable for gross negligence or willful misconduct, which is a standard expectation in contracts.",
+          "risk_addressed": "One-sided provisions and excessive liability exposure.",
+          "priority": "Critical",
+          "section_reference": "6. LIMITATION OF LIABILITY"
+        },
+        {
+          "change_type": "modify",
+          "original_text": "COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED THE TOTAL FEES PAID BY CLIENT UNDER THIS AGREEMENT.",
+          "proposed_text": "COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED THE TOTAL FEES PAID BY CLIENT UNDER THIS AGREEMENT, EXCEPT FOR DAMAGES ARISING FROM GROSS NEGLIGENCE, WILLFUL MISCONDUCT, OR BREACH OF CONFIDENTIALITY.",
+          "rationale": "This modification allows for greater accountability in cases of serious breaches, thus protecting the Client from excessive risk.",
+          "risk_addressed": "Excessive liability exposure.",
+          "priority": "Critical",
+          "section_reference": "6. LIMITATION OF LIABILITY"
+        },
+        {
+          "change_type": "add",
+          "original_text": "",
+          "proposed_text": "The Company shall maintain insurance coverage, including general liability and professional liability insurance, with coverage limits of no less than $1,000,000 per occurrence and $2,000,000 in the aggregate, and shall provide proof of such insurance to the Client upon request.",
+          "rationale": "This clause introduces a risk mitigation strategy that protects both parties in case of failure or negligence.",
+          "risk_addressed": "Missing risk mitigation clauses.",
+          "priority": "High",
+          "section_reference": "New Clause"
+        },
+        {
+          "change_type": "add",
+          "original_text": "",
+          "proposed_text": "Both parties agree to comply with all applicable laws and regulations in the performance of their obligations under this Agreement, including but not limited to data protection laws and industry standards.",
+          "rationale": "This clause ensures that both parties are aware of and agree to comply with relevant legal standards, reducing compliance and regulatory risks.",
+          "risk_addressed": "Compliance and regulatory risks.",
+          "priority": "High",
+          "section_reference": "New Clause"
+        }
+      ],
+      "new_clauses_needed": [
+        {
+          "clause_type": "Insurance Requirements",
+          "proposed_language": "The Company shall maintain insurance coverage, including general liability and professional liability insurance, with coverage limits of no less than $1,000,000 per occurrence and $2,000,000 in the aggregate, and shall provide proof of such insurance to the Client upon request.",
+          "justification": "To protect both parties from financial losses due to negligence or failure.",
+          "priority": "High"
+        },
+        {
+          "clause_type": "Compliance with Laws",
+          "proposed_language": "Both parties agree to comply with all applicable laws and regulations in the performance of their obligations under this Agreement, including but not limited to data protection laws and industry standards.",
+          "justification": "To ensure adherence to legal standards and reduce risks associated with non-compliance.",
+          "priority": "High"
+        }
+      ],
+      "negotiation_strategy": {
+        "key_positions": [
+          "Ensure liability clauses are balanced and protect the Client's interests.",
+          "Introduce insurance requirements to mitigate risks."
+        ],
+        "fallback_options": [
+          "Negotiate a higher cap on liability if the Company is resistant to removing the limitation entirely.",
+          "Consider a phased payment structure tied to performance milestones."
+        ],
+        "deal_breakers": [
+          "Refusal to modify the limitation of liability clause.",
+          "Inability to agree on insurance requirements."
+        ]
+      },
+      "summary": {
+        "total_suggestions": 6,
+        "critical_changes": 2,
+        "estimated_risk_reduction": "Significant reduction in liability exposure and compliance risks."
+      }
+    },
+    "change_prioritization": {
+      "implementation_phases": {
+        "phase_1_critical": {
+          "changes": [
+            {
+              "change_type": "delete",
+              "original_text": "IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF OR RELATED TO THIS AGREEMENT, REGARDLESS OF THE THEORY OF LIABILITY.",
+              "proposed_text": "IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF OR RELATED TO THIS AGREEMENT, REGARDLESS OF THE THEORY OF LIABILITY, EXCEPT IN CASE OF GROSS NEGLIGENCE OR WILLFUL MISCONDUCT.",
+              "rationale": "This change ensures that the Company is held accountable for gross negligence or willful misconduct, which is a standard expectation in contracts.",
+              "risk_addressed": "One-sided provisions and excessive liability exposure.",
+              "priority": "Critical",
+              "section_reference": "6. LIMITATION OF LIABILITY"
+            },
+            {
+              "change_type": "modify",
+              "original_text": "COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED THE TOTAL FEES PAID BY CLIENT UNDER THIS AGREEMENT.",
+              "proposed_text": "COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED THE TOTAL FEES PAID BY CLIENT UNDER THIS AGREEMENT, EXCEPT FOR DAMAGES ARISING FROM GROSS NEGLIGENCE, WILLFUL MISCONDUCT, OR BREACH OF CONFIDENTIALITY.",
+              "rationale": "This modification allows for greater accountability in cases of serious breaches, thus protecting the Client from excessive risk.",
+              "risk_addressed": "Excessive liability exposure.",
+              "priority": "Critical",
+              "section_reference": "6. LIMITATION OF LIABILITY"
+            }
+          ],
+          "timeline": "Address before any signing",
+          "negotiation_approach": "Non-negotiable positions"
+        },
+        "phase_2_high": {
+          "changes": [
+            {
+              "change_type": "add",
+              "original_text": "",
+              "proposed_text": "The Company shall maintain insurance coverage, including general liability and professional liability insurance, with coverage limits of no less than $1,000,000 per occurrence and $2,000,000 in the aggregate, and shall provide proof of such insurance to the Client upon request.",
+              "rationale": "This clause introduces a risk mitigation strategy that protects both parties in case of failure or negligence.",
+              "risk_addressed": "Missing risk mitigation clauses.",
+              "priority": "High",
+              "section_reference": "New Clause"
+            },
+            {
+              "change_type": "add",
+              "original_text": "",
+              "proposed_text": "Both parties agree to comply with all applicable laws and regulations in the performance of their obligations under this Agreement, including but not limited to data protection laws and industry standards.",
+              "rationale": "This clause ensures that both parties are aware of and agree to comply with relevant legal standards, reducing compliance and regulatory risks.",
+              "risk_addressed": "Compliance and regulatory risks.",
+              "priority": "High",
+              "section_reference": "New Clause"
+            }
+          ],
+          "timeline": "Primary negotiation focus",
+          "negotiation_approach": "Strong preference, willing to trade"
+        },
+        "phase_3_medium": {
+          "changes": [],
+          "timeline": "Secondary negotiation items",
+          "negotiation_approach": "Nice to have improvements"
+        }
+      },
+      "negotiation_roadmap": {
+        "must_have_count": 2,
+        "high_priority_count": 2,
+        "total_items": 4
+      }
+    }
+  },
+  "executive_summary": {
+    "contract_overview": {
+      "clauses_analyzed": 7,
+      "high_importance_clauses": 6,
+      "risks_identified": 8,
+      "high_severity_risks": 4,
+      "redline_suggestions": 6,
+      "critical_changes_needed": 2
+    },
+    "overall_assessment": {
+      "risk_level": "HIGH",
+      "contract_quality": "NEEDS_IMPROVEMENT",
+      "recommended_action": "Revise the contract to clarify vague terms, balance liability provisions, include risk mitigation strategies, and ensure compliance with applicable laws.",
+      "key_concerns": [
+        "One-sided limitation of liability",
+        "Inadequate termination protections",
+        "Lack of risk mitigation clauses",
+        "Compliance and regulatory risks"
+      ]
+    }
+  },
+  "next_steps": [
+    "Address 2 critical redline suggestions before proceeding",
+    "Mitigate 4 high-severity risks identified",
+    "Review all redline suggestions with legal counsel",
+    "Negotiate key terms with counterparty",
+    "Obtain final legal approval before signing"
+  ]
+}
