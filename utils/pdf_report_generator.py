@@ -291,11 +291,29 @@ class PDFReportGenerator:
             for clause in detected_clauses:
                 clause_type = clause.get('clause_type', 'Unknown')
                 importance = clause.get('importance_level', 'Unknown')
-                text = clause.get('clause_text', '')[:100] + "..." if len(clause.get('clause_text', '')) > 100 else clause.get('clause_text', '')
+                text = clause.get('clause_text', '')
+                # Better text wrapping for descriptions
+                if len(text) > 120:
+                    text = text[:120] + "..."
                 clause_data.append([clause_type, importance, text])
             
-            clause_table = Table(clause_data, colWidths=[2*inch, 1*inch, 3*inch])
-            clause_table.setStyle(self._get_table_style())
+            clause_table = Table(clause_data, colWidths=[2.2*inch, 1.2*inch, 2.6*inch])
+            clause_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), self.primary_color),
+                ('TEXTCOLOR', (0, 0), (-1, 0), white),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, 0), 11),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                ('TOPPADDING', (0, 0), (-1, 0), 12),
+                ('BACKGROUND', (0, 1), (-1, -1), self.light_gray),
+                ('GRID', (0, 0), (-1, -1), 1, self.dark_gray),
+                ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+                ('FONTSIZE', (0, 1), (-1, -1), 10),
+                ('ROWBACKGROUNDS', (0, 1), (-1, -1), [self.light_gray, white]),
+                ('LEFTPADDING', (0, 0), (-1, -1), 8),
+                ('RIGHTPADDING', (0, 0), (-1, -1), 8)
+            ]))
             story.append(clause_table)
             story.append(Spacer(1, 0.3*inch))
         
@@ -306,15 +324,25 @@ class PDFReportGenerator:
         if risk_analysis:
             story.append(Paragraph("Risk Analysis", self.styles['SubsectionHeader']))
             
-            for risk in risk_analysis[:10]:  # Limit to top 10 risks
+            for i, risk in enumerate(risk_analysis[:8], 1):  # Limit to top 8 risks for better formatting
                 severity = risk.get('severity_level', 'Unknown')
                 risk_type = risk.get('risk_type', 'Unknown Risk')
                 description = risk.get('risk_description', '')
                 
+                # Create a more structured risk entry
                 severity_style = self._get_risk_style(severity)
-                story.append(Paragraph(f"<b>{risk_type}</b> - <b>{severity}</b>", severity_style))
-                story.append(Paragraph(description, self.styles['BodyText']))
-                story.append(Spacer(1, 0.1*inch))
+                
+                # Risk header with number and severity
+                story.append(Paragraph(f"{i}. <b>{risk_type}</b> - <b>{severity} Risk</b>", severity_style))
+                
+                # Risk description with better formatting
+                if description:
+                    # Wrap long descriptions nicely
+                    if len(description) > 400:
+                        description = description[:400] + "..."
+                    story.append(Paragraph(description, self.styles['BodyText']))
+                
+                story.append(Spacer(1, 0.15*inch))
         
         return story
     
