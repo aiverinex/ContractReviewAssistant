@@ -1,0 +1,83 @@
+Build a production-grade Python project named Contract Reviewer Crew, using the structure from the CrewAI Marketplace template (https://github.com/crewAIInc/marketplace-crew-template). This project is designed to be submitted to the CrewAI Marketplace (https://marketplace.crewai.com).
+🎯 Project Purpose
+
+Automate the legal contract review process:
+
+    Ingest contracts (uploaded .txt or .pdf converted to text or .docx converted to text)
+
+    Identify key clauses (e.g., indemnity, termination, exclusivity)
+
+    Flag risks or vague language using GPT-4.0-mini
+
+    Suggest redlines or legal comments
+
+    Output a structured review summary
+
+📁 Required Folder Structure
+
+contract-reviewer-crew/
+├── agents/
+│   ├── clause_detector_agent.py
+│   ├── risk_analysis_agent.py
+│   └── redline_suggester_agent.py
+├── crew/
+│   └── crew.py
+├── tasks/
+│   └── task.py
+├── config/
+│   └── config.yaml
+├── sample_data/
+│   └── sample_contract.txt
+├── main.py
+├── README.md
+├── requirements.txt
+├── .env.example
+└── LICENSE
+
+🧠 Agent Roles
+
+    ClauseDetectorAgent: Finds important clauses and outputs a clause map
+
+    RiskAnalysisAgent: Flags vague, risky, or one-sided clauses
+
+    RedlineSuggesterAgent: Recommends redlines or rewrite suggestions
+
+Each agent uses OpenAI GPT-4 to parse natural legal language.
+🔐 .env.example
+
+OPENAI_API_KEY=your-openai-api-key
+
+⚙️ Runtime Behavior
+
+    Load sample_contract.txt from sample_data/
+
+    Process the full contract through all agents
+
+    Print a final review report:
+
+        Key clauses and their text
+
+        Risk levels (low/medium/high)
+
+        Suggested changes
+
+    Save output to review_summary.txt or JSON
+
+📖 README.md Must Include
+
+    Project purpose and use case
+
+    Setup instructions
+
+    .env and dependency setup
+
+    How to run: python main.py
+
+    Sample input/output
+
+    Mention it complies with CrewAI Template
+
+    Link to https://marketplace.crewai.com
+
+🎯 Final Output:
+A production-ready, modular contract review pipeline — AI-assisted, GPT-powered, and built to help legal teams scale reviews. Ready for GitHub push and CrewAI Marketplace submission.  Make no reference to or mention of "replit" within any text or files.
