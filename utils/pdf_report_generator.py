@@ -309,17 +309,24 @@ class PDFReportGenerator:
         if detected_clauses:
             story.append(Paragraph("Detected Contract Clauses", self.styles['SubsectionHeader']))
             
-            clause_data = [['Clause Type', 'Importance', 'Description']]
+            # Wrap description text in Paragraphs for better formatting
+            formatted_clause_data = [['Clause Type', 'Importance', 'Description']]
             for clause in detected_clauses:
                 clause_type = clause.get('clause_type', 'Unknown')
                 importance = clause.get('importance_level', 'Unknown')
                 text = clause.get('clause_text', '')
                 # Better text wrapping for descriptions
-                if len(text) > 120:
-                    text = text[:120] + "..."
-                clause_data.append([clause_type, importance, text])
+                if len(text) > 80:
+                    text = text[:80] + "..."
+                
+                # Wrap text in Paragraph objects for better formatting
+                formatted_clause_data.append([
+                    Paragraph(clause_type, self.styles['BodyText']),
+                    Paragraph(importance, self.styles['BodyText']),
+                    Paragraph(text, self.styles['BodyText'])
+                ])
             
-            clause_table = Table(clause_data, colWidths=[2.2*inch, 1.2*inch, 2.6*inch])
+            clause_table = Table(formatted_clause_data, colWidths=[1.8*inch, 1*inch, 3.2*inch])
             clause_table.setStyle(TableStyle([
                 ('BACKGROUND', (0, 0), (-1, 0), self.primary_color),
                 ('TEXTCOLOR', (0, 0), (-1, 0), white),
@@ -331,10 +338,12 @@ class PDFReportGenerator:
                 ('BACKGROUND', (0, 1), (-1, -1), self.light_gray),
                 ('GRID', (0, 0), (-1, -1), 1, self.dark_gray),
                 ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-                ('FONTSIZE', (0, 1), (-1, -1), 10),
+                ('FONTSIZE', (0, 1), (-1, -1), 9),
                 ('ROWBACKGROUNDS', (0, 1), (-1, -1), [self.light_gray, white]),
-                ('LEFTPADDING', (0, 0), (-1, -1), 8),
-                ('RIGHTPADDING', (0, 0), (-1, -1), 8)
+                ('LEFTPADDING', (0, 0), (-1, -1), 6),
+                ('RIGHTPADDING', (0, 0), (-1, -1), 6),
+                ('TOPPADDING', (0, 1), (-1, -1), 8),
+                ('BOTTOMPADDING', (0, 1), (-1, -1), 8)
             ]))
             story.append(clause_table)
             story.append(Spacer(1, 0.3*inch))
