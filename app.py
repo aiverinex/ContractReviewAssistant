@@ -33,7 +33,7 @@ CORS(app)
 
 # Configuration
 UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docx', 'doc'}
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docx', 'doc', 'png', 'jpg', 'jpeg', 'tiff', 'bmp'}
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -47,7 +47,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def extract_text_from_file(file_path):
-    """Extract text from uploaded file based on extension."""
+    """Extract text from uploaded file based on extension with OCR support."""
     file_extension = Path(file_path).suffix.lower()
     
     if file_extension == '.txt':
@@ -57,6 +57,13 @@ def extract_text_from_file(file_path):
         return extract_text_from_pdf(file_path)
     elif file_extension in ['.docx', '.doc']:
         return extract_text_from_docx(file_path)
+    elif file_extension in ['.png', '.jpg', '.jpeg', '.tiff', '.bmp']:
+        # Handle image files directly with OCR
+        try:
+            from utils.ocr_handler import ocr_handler
+            return ocr_handler.extract_text_from_image(file_path)
+        except Exception as e:
+            raise ValueError(f"OCR extraction failed: {str(e)}")
     else:
         raise ValueError(f"Unsupported file format: {file_extension}")
 

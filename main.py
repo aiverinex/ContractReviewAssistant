@@ -61,7 +61,7 @@ def load_config():
 
 def extract_text_from_pdf(file_path: str) -> str:
     """
-    Extract text from PDF file using pdfplumber with fallback to PyPDF2.
+    Extract text from PDF file using pdfplumber, PyPDF2, and OCR fallback.
     
     Args:
         file_path (str): Path to the PDF file
@@ -79,7 +79,7 @@ def extract_text_from_pdf(file_path: str) -> str:
                 if page_text:
                     text += page_text + "\n"
         
-        if text.strip():
+        if text.strip() and len(text.strip()) > 100:
             print(f"✅ Text extracted from PDF using pdfplumber: {len(text)} characters")
             return text
             
@@ -92,13 +92,29 @@ def extract_text_from_pdf(file_path: str) -> str:
         for page in reader.pages:
             text += page.extract_text() + "\n"
         
-        if text.strip():
+        if text.strip() and len(text.strip()) > 100:
             print(f"✅ Text extracted from PDF using PyPDF2: {len(text)} characters")
             return text
             
     except Exception as e:
-        print(f"❌ PDF text extraction failed with both methods: {e}")
+        print(f"⚠️  PyPDF2 extraction failed: {e}")
     
+    # OCR fallback for image-based PDFs
+    try:
+        print("📸 Attempting OCR for image-based PDF...")
+        from utils.ocr_handler import ocr_handler
+        ocr_text = ocr_handler.extract_text_with_fallback(file_path)
+        
+        if ocr_text.strip():
+            print(f"✅ Text extracted using OCR: {len(ocr_text)} characters")
+            return ocr_text
+        else:
+            print("❌ OCR extraction returned no text")
+            
+    except Exception as e:
+        print(f"❌ OCR extraction failed: {e}")
+    
+    print("❌ All PDF text extraction methods failed")
     return text
 
 def extract_text_from_docx(file_path: str) -> str:
