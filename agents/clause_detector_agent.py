@@ -75,10 +75,9 @@ class ClauseDetectorAgent:
             {contract_text}
             """
             
-            # the newest OpenAI model is "gpt-4o" which was released May 13, 2024.
-            # do not change this unless explicitly requested by the user
+            # Using GPT-4o-mini for cost-effective contract analysis
             response = self.openai_client.chat.completions.create(
-                model="gpt-4o",
+                model="gpt-4o-mini",
                 messages=[
                     {
                         "role": "system", 
